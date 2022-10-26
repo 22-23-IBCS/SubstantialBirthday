@@ -60,8 +60,14 @@ class Artist:
     def polygon(self,size=100,side=6):
         for i in range(side):
             self.t.forward(size)
-            self.t.left(360/side)
+            self.t.leftd(360/side)
+
+    def house(self, size=100):
+        square(size)
+        triangle(size)
+
             
+        
         
 
 def main():
@@ -74,18 +80,20 @@ def main():
     art = Artist(t)
 
     art.shavedIce()
-    art.move(20,0)
-    art.square(50)
-    art.move(40,10)
-    art.triangle()
-    art.move(10,20)
-    art.circle()
-    art.move(70,30)
-    art.star()
-    art.move(100,40)
+    #art.move(20,0)
+    #art.square(50)
+    #art.move(40,10)
+    #art.triangle()
+    #art.move(10,20)
+    #art.circle()
+    #art.move(70,30)
+    #art.star()
+    #art.move(100,40)
     art.hashTag(200)
     art.move(150,30)
-    art.polygon(100,7)
+    #art.polygon(100,7)
+ 
+    
 
     
     

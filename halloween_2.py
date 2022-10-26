@@ -1,0 +1,121 @@
+
+import random
+class House:
+    def __init__(self):
+        self.rating=random.randint(1,10)
+    def getRating(self):
+        return self.rating
+
+    def calcPath(self,m,l):
+        sumP=0
+        for i in range(0,len(l)):
+            x=l[i][0]
+            y=l[i][1]
+            sumP=m[x][y]+sumP
+        return sumP
+
+    def calcMatrix(self,m):
+        sumM=0
+        for i in range(0,5):
+            sumM=sumM+m[i][0]+m[i][1]+m[i][2]+m[i][3]+m[i][4]
+
+        return sumM
+        
+
+    def randPath(self,m,num):
+        self.p =[]
+        counter=num
+        while(len(self.p)<num):
+            self.p=[]
+            x=random.randint(0,4)
+            y=random.randint(0,4)
+            startingHouse = [x,y]
+            self.p.append(startingHouse) #starting house
+            counter=counter-1
+
+            if(counter==0):
+                return self.p
+            
+            for i in range(num-1):
+
+                while True:
+
+                    lastElem=len(self.p)-1
+
+                    x=self.p[lastElem][0]
+                    y=self.p[lastElem][1]
+
+                    self.adjacent_houses=[]
+                    
+                    if (x+1<5):
+                        if [x+1, y] in self.p:
+                            q=" "
+                        else: self.adjacent_houses.append([x+1, y])
+                       
+                    if (x-1>-1):
+                        if [x-1, y] in self.p:
+                            q=" "
+                        else: self.adjacent_houses.append([x-1, y])
+
+                    if(y+1<5):
+                        if [x, y+1] in self.p:
+                            q=" "
+                        else: self.adjacent_houses.append([x, y+1])
+
+                    if(y-1>-1):
+                        if [x, y-1] in self.p:
+                            q=" "
+                        else: self.adjacent_houses.append([x, y-1])
+
+                    if(len(self.adjacent_houses)>0 and counter>0):
+                        self.p.append(self.adjacent_houses[random.randint(0,len(self.adjacent_houses)-1)])
+                        counter=counter-1
+
+                    #else: return "you are trapped",self.p
+
+                    elif(counter<1):
+                        return self.p
+                    
+
+                    elif(len(self.adjacent_houses)<=0):
+                        return self.p
+                        
+def main():
+
+    m=[[],[],[],[],[]]
+    for l in m:
+        for i in range(5):
+            h=House()
+            l.append(h.getRating())
+    for i in range(5):
+        print(m[0][i],m[1][i],m[2][i],m[3][i],m[4][i])
+
+    num=int(input ("How many houses? \n"))
+
+    path=h.randPath(m,num)
+
+    print("path:", path)
+
+    matrixAve=h.calcMatrix(m)/20
+
+    if(len(path)==num and h.calcPath(m,path)>matrixAve):
+        print("Number of collected candies: ",h.calcPath(m,path))
+        print("Average generosity: ",matrixAve)
+        print("successs")
+
+    elif(len(path)==num and h.calcPath(m,path)<=matrixAve):
+        print("Number of collected candies: ",h.calcPath(m,path))
+        print("Average generosity: ",matrixAve)
+        print("Fail")
+        
+
+    elif(len(path)!=num):
+        print("trapped")
+
+
+   
+                
+
+if __name__=="__main__":
+    main()
+
