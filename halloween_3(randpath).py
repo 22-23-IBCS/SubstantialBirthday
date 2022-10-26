@@ -21,8 +21,9 @@ class House:
 
         return sumM
         
-
+        
     def randPath(self,m,num):
+        
         self.p =[]
         counter=num
         while(len(self.p)<num):
@@ -71,15 +72,20 @@ class House:
                         self.p.append(self.adjacent_houses[random.randint(0,len(self.adjacent_houses)-1)])
                         counter=counter-1
 
-                    #else: return "you are trapped",self.p
-
+                    
+                        
+    
                     elif(counter<1):
                         return self.p
-                    
 
                     elif(len(self.adjacent_houses)<=0):
                         return self.p
-                        
+                    
+'''
+                    elif(len(self.adjacent_houses)<=0):
+                        return self.p
+                    '''           
+        #return self.p                       
 def main():
 
     m=[[],[],[],[],[]]
@@ -94,29 +100,31 @@ def main():
 
     path=h.randPath(m,num)
 
-    print("path:", path)
-
     matrixAve=h.calcMatrix(m)/25
 
-    if(len(path)==num and h.calcPath(m,path)/num>matrixAve):
+    pathAve= h.calcPath(m,path)/num
+
+    if (len(path)==num and (pathAve > matrixAve)):
+        print("path: ", path)
+        print("Number of collected candies: ", h.calcPath(m,path))
+        print("Your Average: ", h.calcPath(m,path)/num)
+        print("Average generosity: ", matrixAve)
+        print("successs")
+        
+    if(len(path) != num or pathAve < matrixAve):
+
+        print("Your original path has problem. So here's a new one")
+
+        while(True):
+            path=h.randPath(m,num)
+
+            if(len(path)==num and h.calcPath(m,path)/num>matrixAve):
+                break
+        print("path: ", path)
         print("Number of collected candies: ", h.calcPath(m,path))
         print("Your Average: ", h.calcPath(m,path)/num)
         print("Average generosity: ",matrixAve)
         print("successs")
-
-    elif(len(path)==num and h.calcPath(m,path)/num<=matrixAve):
-        print("Number of collected candies: ",h.calcPath(m,path))
-        print("Your Average: ", h.calcPath(m,path)/num)
-        print("Average generosity: ",matrixAve)
-        print("Fail")
-        
-
-    elif(len(path)!=num):
-        print("trapped")
-
-
-   
-                
 
 if __name__=="__main__":
     main()
