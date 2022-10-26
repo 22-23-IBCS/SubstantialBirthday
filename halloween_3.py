@@ -96,15 +96,17 @@ def main():
 
     print("path:", path)
 
-    matrixAve=h.calcMatrix(m)/20
+    matrixAve=h.calcMatrix(m)/25
 
-    if(len(path)==num and h.calcPath(m,path)>matrixAve):
-        print("Number of collected candies: ",h.calcPath(m,path))
+    if(len(path)==num and h.calcPath(m,path)/num>matrixAve):
+        print("Number of collected candies: ", h.calcPath(m,path))
+        print("Your Average: ", h.calcPath(m,path)/num)
         print("Average generosity: ",matrixAve)
         print("successs")
 
-    elif(len(path)==num and h.calcPath(m,path)<=matrixAve):
+    elif(len(path)==num and h.calcPath(m,path)/num<=matrixAve):
         print("Number of collected candies: ",h.calcPath(m,path))
+        print("Your Average: ", h.calcPath(m,path)/num)
         print("Average generosity: ",matrixAve)
         print("Fail")
         
