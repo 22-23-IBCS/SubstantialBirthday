@@ -85,7 +85,10 @@ def greedyPath(m,num):
         y = nextHouse[1]
         pVal=pVal+m[x][y]
 
-    return pVal/num,p
+    if (len(p)!=num):
+        return "your trapped. please try again"
+
+    return pVal,p
   
 def main():
 
@@ -103,37 +106,20 @@ def main():
 
     path=greedyPath(m,num)
 
-    #pathAve= h.calcPath(m,path)/num
-
-    print("path average, path",greedyPath(m,num))
-
+    print("path: ", path[1])
+    print("path average: ",path[0]/num)
+    print("total candies collected: ",path[0])
     print("Average generosity", matrixAve)
+
+    if(path[0]>matrixAve):
+        print("success")
+    elif(path[0]<=matrixAve):
+        print("fail")
+
 
     
 
-'''
-    if (len(path)==num and (pathAve > matrixAve)):
-        print("path: ", path)
-        print("Number of collected candies: ", h.calcPath(m,path))
-        print("Your Average: ", h.calcPath(m,path)/num)
-        print("Average generosity: ", matrixAve)
-        print("successs")
-        
-    if(len(path) != num or pathAve < matrixAve):
 
-        print("Your original path has problem. So here's a new one")
-
-        while(True):
-            path=h.randPath(m,num)
-
-            if(len(path)==num and h.calcPath(m,path)/num>matrixAve):
-                break
-        print("path: ", path)
-        print("Number of collected candies: ", h.calcPath(m,path))
-        print("Your Average: ", h.calcPath(m,path)/num)
-        print("Average generosity: ",matrixAve)
-        print("successs")
-'''
 if __name__=="__main__":
     main()
 
