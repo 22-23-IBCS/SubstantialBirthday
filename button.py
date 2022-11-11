@@ -32,7 +32,7 @@ class Button(Rectangle):
 
 class Quitbutton(Button):
 
-    def __init__(self, win, p1, p2, color, text):
+    def __init__(self, win, p1, p2, color="Red", text="Quit"):
         super().__init__(win, p1, p2, color, text)
 
     def isQuit(self,p):
