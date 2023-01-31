@@ -78,35 +78,66 @@ def madlib():
     txt10.setSize(18)
     txt10.draw(win)
 
-
-    
-
-    
-    
-
 def gravity():
-    v=0
-    win = GraphWin("Gravity", 500,10000)
+    win = GraphWin("Gravity", 500,500)
     x=250
-    y=250
+    y=1.5
     circle = Circle(Point(x,y),10)
     circle.draw(win)
     while True:
         circle.undraw()
-        #v=v+(9.8*time)
-        #y=y+(v*time)
-        y=y+10
+        y=y**1.098
         circle = Circle(Point(x,y),10)
         circle.draw(win)
-        time.sleep(0.0001)
-        #end=time.time()
-        #time=start-end
-        #print(time)
-    
-    
+        time.sleep(0.01)
+        if (y>500):
+            circle.undraw()
+            y=490
+            circle = Circle(Point(x,y),10)
+            circle.draw(win)
+            break
+
+def bounce():
+
+    win = GraphWin("Gravity", 500,500)
+    x=250
+    y=1.5
+    circle = Circle(Point(x,y),10)
+    circle.draw(win)
+    while True:
+        circle.undraw()
+        y=y**1.098
+        circle = Circle(Point(x,y),10)
+        circle.draw(win)
+        time.sleep(0.01)
+        if (y>500):
+            circle.undraw()
+            y=300
+            circle = Circle(Point(x,y),10)
+            circle.draw(win)
+            circle.undraw()
+            while y<500:
+                circle = Circle(Point(x,490),10)
+                time.sleep(0.001)
+                circle.draw(win)
+                circle.undraw()
+                y=y+100
+                circle = Circle(Point(x,y),10)
+                time.sleep(0.001)
+                circle.draw(win)
+                circle.undraw()
+
+            circle = Circle(Point(x,490),10)
+            circle.draw(win)
+            break
+
+                
+          
 
 def main():
-    madlib()
+    #madlib()
+    #gravity()
+    bounce()
 
 
     
