@@ -121,7 +121,7 @@ def bounce():
                 time.sleep(0.001)
                 circle.draw(win)
                 circle.undraw()
-                y=y+100
+                y=y+30
                 circle = Circle(Point(x,y),10)
                 time.sleep(0.001)
                 circle.draw(win)
