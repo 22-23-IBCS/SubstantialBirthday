@@ -20,33 +20,30 @@ def CentralTendencies(x,y,z):
 
     return(mean, mid)
 
-def randomPrime():
-    n=random.randint(1,100)
-    if(n%2==0):
-        return(str(n)+" is multiple of 2")
-    if(n%3==0):
-        return(str(n)+" is multiple of 3")
-    if(n%5==0):
-        return(str(n)+" is multiple of 5")
-    else:
-        return(str(n)+" is not multiple of 2,3, or 5")
+def randomPrime(n):
 
-def maxMinRange():
-    l=[]
-    n=random.randint(1,50)
-    l.append(n)
+    print (n)
+    
+    if(n%2==0):
+        return True
+    if(n%3==0):
+        return True
+    if(n%5==0):
+        return True
+    else:
+        return False 
+
+def maxMinRange(l):
     mini=l[0]
     maxi=l[0]
-    for i in range(9):
-        n=random.randint(1,50)
-        if (n<mini):
-            mini=n
-        if(n>maxi):
-            maxi=n    
-        l.append(n)
+    for i in range(len(l)):
+        if (l[i]<mini):
+            mini=l[i]
+        if(l[i]>maxi):
+            maxi=l[i]  
     print(l)
     range1=maxi-mini
-    return ("Maximum: ",maxi," Minimum: ",mini,"range: ", range1)
+    return ("Maximum: ",maxi," Minimum: ",mini,"range: ",range1)
 
 def polarCoord(l):
     
@@ -97,9 +94,14 @@ def scrabbleScore(n,bonus):
     return score
         
 def main():
+    
+    l=[]
+    for i in range(10):
+        l.append(random.randint(1,50))
+        
     print(CentralTendencies(1,3,5))
-    print(randomPrime())
-    print(maxMinRange())
+    print(randomPrime(random.randint(1,100)))
+    print(maxMinRange(l))
     print(polarCoord([-5,4]))
     print(scrabbleScore("junha","double"))
     
