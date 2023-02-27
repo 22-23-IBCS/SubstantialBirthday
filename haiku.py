@@ -61,6 +61,17 @@ def haiku222(allList,oneList,twoList,threeList,fourList,syll):
                 allList.remove(replace)
                 firstLine.append(replace)
                 break
+
+    for w in firstLine:
+        if w in oneList:
+            oneList.remove(w)
+        if w in twoList:
+            twoList.remove(w)
+        if w in threeList:
+            threeList.remove(w)
+        if w in fourList:
+            fourList.remove(w)
+            
     return(firstLine,allList,oneList,twoList,threeList,fourList)
     
 
@@ -115,50 +126,9 @@ def haiku():
     haiku=haiku+"\n"
 
     return(haiku)
-    
-
-def greeting():
-    name = input("Give a name\n")
-    return "Hello,"+name+". Welcome to the Class."
-
 
 def main():
     print(haiku())
-'''
-    sample = open("sampleText.txt")
-    myString=sample.read()
-    myList=myString.split()
-    for word in myList:
-        word = word.lower()
-        if "an" in word:
-            print(word)
 
-
-    #String formatting
-    #Create place-holders for various strings and "fields"
-    #print things with the place holders substuting different values
-
-    name="Mr.Considine"
-    greeting = "Hello, {}. Welcome to the class"
-    # Change place-holder with the value of name
-    
-    print(greeting.format(name))
-
-    name="Frank"
-    print(greeting.format(name))
-
-    text = "Congrats, {2}, you got a {0} on the final exam! Thanks {1}"
-    name = "Mr.Phillips"
-    grade = "99"
-    print(text.format(name,"Finn",grade))
-
-    #Can also format intergers and floats
-    price = 4.67999999
-    txt = "Yikes, gas costs ${:2f} a gallon!"
-    print(txt.format(price))
-
-'''
 if __name__=="__main__":
     main()
-
-    
