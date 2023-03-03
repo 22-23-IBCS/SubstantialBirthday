@@ -101,7 +101,7 @@ def haiku():
         allList.append(i)
     fourList=d.split()
 
-    print("Welcome to haiku generater. You can type number of syllables you want for each line.\n")
+    print("Welcome to haiku generater. You can type number of syllables you want for each line. \n")
 
     syll1=input("How many syllables for the first line? *Type 5 for haiku*\n")
     syll2=input("How many syllables for the second line? *Type 7 for haiku*\n")
