@@ -148,6 +148,8 @@ class Graph:
         return(self.mini)
 
     def hasCycle(self):
+        
+        
         self.degree= self.degreeList()
         self.name=self.nameList()
         self.l2=[]
@@ -167,6 +169,8 @@ class Graph:
                 return True
 
         return False
+
+    #one entry for number of nodes and the other nodes for the number of edges
                 
 def main():
 
