@@ -158,28 +158,37 @@ class Graph:
         return(self.mini)
 
     def hasCycle(self):
-        
-        
-        self.degree= self.degreeList()
-        self.name=self.nameList()
-        self.l2=[]
-
-        for w in self.degree:
-            if w>=2:
-                self.l2.append(w)
-                self.name.pop(0)
-
-        sum1=0
-
-        for w in self.l2:
-            sum1=sum1+w
-            print(sum1)
-            print(self.name)
-            if len(self.name)*2<=sum1:
+        for n in self.nodes:
+            #call traverse graph (recursive function) on each node in the graph
+            #if it is every true (cycle found) return true.
+            if self.traverseGraph(n, n, []):
                 return True
-
+        # if it never returned true, there was never a cycle
         return False
-        
+                        
+    def traverseGraph(self, current, previous, visited):
+        #base case -- dead end
+        if len(current.getNeighbors()) <= 1:
+            return False
+
+        #see possible neighbors to still visit
+        check = []
+        for node in current.getNeighbors():
+            # return true if one of the neighbors has been previously visited
+            if (node in visited) and (node != previous):
+                return True
+            #otherwise, add unvisited nodes to a list to traverse
+            elif node != previous:
+                check.append(node)
+                
+        #update visited nodes  
+        visited.append(previous)
+        for node in check:
+            #recursive call on each new unvisited neighbor
+            if self.traverseGraph(node, current, visited):
+                return True
+        return False
+                
 
     def removeNode(self,win):
         r=30
@@ -199,12 +208,14 @@ class Graph:
         for i in range(len(coordinates)):
             if (x-coordinates[i][0])**2+(y-coordinates[i][1])**2<=r**2:
                 self.nodes[i].undraw()
-                self.nodes.remove(self.nodes[i])
+                node=self.nodes[i]
                 #remove the node from the neighbors
-                '''
                 for n in self.nodes:
-                    if len(n.getNeighbors())>0:
-                        '''
+                    l=n.getNeighbors()
+                    if node in l:
+                        l.remove(node)
+                self.nodes.remove(self.nodes[i])
+        
                 for a in coordinates:
                     edgeCoordX1=int(coordinates[i][0])
                 
@@ -262,27 +273,33 @@ class Graph:
             
     def coloring(self):
 
-        print(self.nodes)
+        maxNeighbors=0
 
-        for node in self.nodes:
-            node.setColor("white")
+        for n in self.nodes:
+            if len(n.getNeighbors())>maxNeighbors:
+                maxNeighbors=len(n.getNeighbors())
 
-        revisitNode=[]
-    
         for node in self.nodes:
             nodeColor=node.getColor()
             unavailableColor=[]
-            self.colorList=["darkorchid","lightgoldenrod1","orchid","white"]
+            self.colorList=["darkorchid","lightgoldenrod1","orchid","white","grey","brown"]
+
+            if maxNeighbors>len(self.colorList):
+                self.colorList=self.colorList
+            else:
+
+                for i in range(len(self.colorList)-(maxNeighbors+1),0):
+                    self.colorList.remove(self.colorList[i])
 
             for neighbor in node.getNeighbors():
                 unavailableColor.append(neighbor.getColor())
-                print(neighbor.getColor())
+                #print(neighbor.getColor())
                 #if neighbor.getColor()==nodeColor:
                  #   unavailableColor.append(neighbor.getColor())
                     
             for c in unavailableColor:
                 if c in self.colorList:
-                    print(unavailableColor)
+                    #print(unavailableColor)
                     self.colorList.remove(c)
 
             if len(self.colorList)<= 0:
@@ -294,7 +311,7 @@ class Graph:
                     r=0
                 else:
                     r=len(self.colorList)-1
-                print(node.getName() ,self.colorList)
+                #print(node.getName() ,self.colorList)
 
 
                 newColor=self.colorList[random.randint(0,r)]
@@ -303,8 +320,7 @@ class Graph:
                     if node in node1.getNeighbors():
                         node.setColor(newColor)
             
-            self.colorList=["darkorchid","lightgoldenrod1","orchid","white"]
-            unavailableColor=[]
+        
                 
             
             '''
@@ -333,6 +349,9 @@ def main():
     EdgeSubmit=Button(win,Point(30,395),Point(170,410),"tomato","submit number of edges")
     RemoveNode=Button(win,Point(120,430),Point(230,490),"cyan","Remove Node")
     addEdge=Button(win,Point(120,530),Point(230,590),"cyan","Add Edge")
+    maxDegree=Button(win,Point(30,270),Point(150,300),"Cyan","Greatest Degree")
+    minDegree=Button(win,Point(30,230),Point(150,260),"Cyan","Smallest Degree")
+    hasCycle=Button(win,Point(30,190),Point(150,220),"Cyan","Has Cycle")
     G = Graph(1, 0, win)
 
 
@@ -345,11 +364,11 @@ def main():
         
         if NodeSubmit.isClicked(m):
             nodeNum=E1.getText()
-            print(nodeNum)
+            print("Number of nodes: ",nodeNum)
 
         if EdgeSubmit.isClicked(m):
             edgeNum=E2.getText()
-            print(edgeNum)
+            print("Number of edges: ",edgeNum)
 
         if RemoveNode.isClicked(m):
              G.removeNode(win)
@@ -358,6 +377,15 @@ def main():
         if addEdge.isClicked(m):
             G.addEdge(win)
             G.coloring()
+
+        if maxDegree.isClicked(m):
+            G.maxDegree()
+
+        if minDegree.isClicked(m):
+            G.minDegree()
+
+        if hasCycle.isClicked(m):
+            print(G.hasCycle())
             
         
         if Gen.isClicked(m):
@@ -367,25 +395,7 @@ def main():
             G = Graph(int(nodeNum),int(edgeNum), win)
             G.coloring()
 
-            #G.coloring()
-            
-            #G.getAllDegrees()
-            #G.maxDegree()
-            #G.minDegree()
-            #print(G.hasCycle())
-
         
-            
-        '''
-        if Gen.isClicked(m):
-            G.delete()
-            #Create a graph with (num Nodes, num Edges)
-            G = Graph(6, 5, win)
-            G.getAllDegrees()
-            G.maxDegree()
-            G.minDegree()
-            print(G.hasCycle())
-         '''
     win.close()
 
 
