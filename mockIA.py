@@ -11,7 +11,7 @@ d10 = [1,2,3,4,5,6,7,8,9,10]
 d12 = [1,2,3,4,5,6,7,8,9,10,11,12]
 d20 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-def roleDice(allDiceValues, time):
+def roleDice(allDiceValues=[[0,1,2,3,4,5,6,7,8,9]], time="1"):
     values = []
     sumRound = []
     for i in range(time):
@@ -32,7 +32,7 @@ def isInt(userTxt,numbers):
             userTxt = int(userTxt)
             return(True)
 
-def modifierIsInt(m,sign,numbers):
+def modifierIsInt(m,sign= ["+","-"],numbers = ["0","1","2","3","4","5","6","7","8","9"]):
     letter = 0
     if len(m)>0:
         for i in range(1,len(m)):
@@ -63,7 +63,7 @@ def calcSuccessRate(allDiceValues,succVal,modifier): #run random roles for 1000 
         v = roleDice(allDiceValues,1)[0]
         if v+m>=succVal:
             count=count+1
-    return((count/1000)*100)
+    return(round((count/1000)*100,2))
 
 def main():
     win = GraphWin("gui",850,600)
@@ -73,7 +73,7 @@ def main():
     dice10 = Button(win, Point(20,300), Point(150,370),"white","10 sides")
     dice12 = Button(win, Point(20,400), Point(150,470),"white","12 sides")
     dice20 = Button(win, Point(20,500), Point(150,570),"white","20 sides")
-    roll = Button(win, Point(700,280), Point(800,360), "red", "Role")
+    roll = Button(win, Point(700,280), Point(800,360), "red", "Roll")
     stop = Button(win, Point(700,410), Point(800,490), "red", "Quit")
     succRate=Button(win,Point(700,150),Point(800,230),"red","show success rate")
     
@@ -126,8 +126,8 @@ def main():
     clickedDices = []
     clickedButton = []
     while True:
-        allResults = []
         m = win.getMouse()
+        allResults = []
 
         if stop.isClicked(m):
             break
